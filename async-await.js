@@ -11,22 +11,47 @@ function getDetainedAction(time, result) {
     });
 }
 
-async function getAsyncDetainedAction(time, result) {
-    return await getDetainedAction(time, result);
+async function go() {
+    const t = new Timer('async/await');
+
+    let result = await getDetainedAction(1000, 1);
+    t.tick(result);
+
+    result += await 2;
+    t.tick(result);
+
+    result += 3;
+    t.tick(result);
+
+    result += await getDetainedAction(2000, 4);
+    t.tick(result);
+
+    result += await (async () => new Promise((resolve) => {
+        setTimeout(() => { resolve(5); }, 1000);
+    }))();
+    t.tick(result);
+
+    try {
+        result += await (async () => new Promise((resolve, reject) => {
+            setTimeout(reject, 1000);
+        }))();
+        console.log('I should not be visible');
+    } catch (e) {
+        console.error('Error intercepted', e);
+        result += 6;
+    }
+    t.tick(result);
+
+    return result;
 }
 
-let result;
+const ts = new Timer('sync flow');
+const tas = new Timer('realtime flow');
 
-const t = new Timer('async/await');
+const result = go()
+    .then((res) => {
+        tas.tick(res);
+    })
+    .catch(console.error);
 
-result = getAsyncDetainedAction(1000, 1);
-
-t.tick(result);
-
-result += 2;
-
-t.tick(result);
-
-result += getDetainedAction(2000, 3);
-
-t.tick(result);
+ts.tick(result);
