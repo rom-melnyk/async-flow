@@ -2,6 +2,7 @@ const Timer = require('./timer');
 
 /**
  * @param {Number} time (ms)
+ * @param {*} result
  */
 function getDetainedAction(time, result) {
     return new Promise((resolve) => {
