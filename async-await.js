@@ -40,7 +40,7 @@ async function go() {
         console.error('Error intercepted', e);
         result += 6;
     }
-    t.tick(result);
+    t.stop(result);
 
     return result;
 }
@@ -50,8 +50,8 @@ const tRealtime = new Timer('realtime flow');
 
 const result = go()
     .then((res) => {
-        tRealtime.tick(res);
+        tRealtime.stop(res);
     })
     .catch(console.error);
 
-tSync.tick(result);
+tSync.stop(result);

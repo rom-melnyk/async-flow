@@ -42,6 +42,6 @@ getDetainedAction(1000, 'one')
         return 'six';
     })
     .then((res) => {
-        t.tick(res);
+        t.stop(res);
     })
     .catch(console.error);

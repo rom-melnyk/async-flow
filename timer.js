@@ -37,13 +37,13 @@ class Timer {
 
     tick(result) {
         const now = Date.now();
-        console.log(`[ ${getHeader(this.name)} ] tick in ${now - this.timestamp}ms${getResult(result)}`);
+        console.log(`[ ${getHeader(this.name)} ] tick after ${now - this.timestamp}ms${getResult(result)}`);
         this.timestamp = now;
     }
 
     stop(result) {
         const now = Date.now();
-        console.log(`[ ${getHeader(this.name)} ] stopped in ${now - this.timestamp}ms${getResult(result)}`);
+        console.log(`[ ${getHeader(this.name)} ] stopped after ${now - this.timestamp}ms${getResult(result)}`);
     }
 
     reset() {
