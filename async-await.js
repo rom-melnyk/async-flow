@@ -45,13 +45,13 @@ async function go() {
     return result;
 }
 
-const ts = new Timer('sync flow');
-const tas = new Timer('realtime flow');
+const tSync = new Timer('sync flow');
+const tRealtime = new Timer('realtime flow');
 
 const result = go()
     .then((res) => {
-        tas.tick(res);
+        tRealtime.tick(res);
     })
     .catch(console.error);
 
-ts.tick(result);
+tSync.tick(result);
