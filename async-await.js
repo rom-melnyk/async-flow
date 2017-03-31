@@ -36,9 +36,9 @@ async function go() {
         result += await (async () => new Promise((resolve, reject) => {
             setTimeout(reject, 1000);
         }))();
-        console.log('I should not be visible');
+        console.log('I should never appear');
     } catch (e) {
-        console.error('Error intercepted', e);
+        console.warn('Error intercepted', e);
         result += 6;
     }
     t.stop(result);

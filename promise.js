@@ -39,10 +39,12 @@ getDetainedAction(1000, 'one')
         console.log('I should never appear');
     })
     .catch((e) => {
-        console.error('Error intercepted:', e);
+        console.warn('Error intercepted:', e);
         return 'six';
     })
     .then((res) => {
         t.stop(res);
     })
     .catch(console.error);
+
+t.tick('sync flow');
